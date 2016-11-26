@@ -1,22 +1,21 @@
 package com.wasd.mains;
 
-import com.wasd.Mp3File;
 import com.wasd.Mp3Util;
+import com.wasd.Util;
 
 import java.util.List;
 
 public class ReadRawMp3 {
 
     public static void main(String[] args) throws Exception {
-        Mp3File mp3 = new Mp3File(Mp3Util.TEST_FILENAME);
 
-        mp3.init();
+        List<Byte> bytes = Mp3Util.bytesFromFile(Mp3Util.TEST_FILENAME);
 
-        List<Byte> bytes = Mp3Util.readRawData(mp3.getDecodedInput());
+        System.out.println("before: " + bytes.size());
 
-        mp3.close();
+        bytes = Util.trimZeroes(bytes);
 
-        System.out.println(bytes.size());
+        System.out.println("after: " + bytes.size());
     }
 
 }

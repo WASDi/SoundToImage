@@ -6,6 +6,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,19 @@ public class Mp3Util {
 
     public static final String TEST_FILENAME = "nuclear-siren.mp3";
 
-    public static List<Byte> readRawData(AudioInputStream decodedInput) throws IOException, LineUnavailableException {
+    public static List<Byte> bytesFromFile(String fileName) throws IOException, UnsupportedAudioFileException {
+        Mp3File mp3 = new Mp3File(fileName);
+
+        mp3.init();
+
+        List<Byte> bytes = Mp3Util.readRawData(mp3.getDecodedInput());
+
+        mp3.close();
+
+        return bytes;
+    }
+
+    private static List<Byte> readRawData(AudioInputStream decodedInput) throws IOException {
         List<Byte> bytes = new ArrayList<>(1024*1024);
         byte[] data = new byte[4096];
         int nBytesRead = 0;
