@@ -6,15 +6,19 @@ import java.util.List;
 
 public class BasicGrayscaleRendering implements RenderingStrategy {
 
-    private static final int IMAGE_WIDTH = 835;
+    private final int imageWidth;
+
+    public BasicGrayscaleRendering(int imageWidth) {
+        this.imageWidth = imageWidth;
+    }
 
     @Override
     public BufferedImage render(List<Byte> bytes) {
-        int imageHeight = bytes.size() / IMAGE_WIDTH;
+        int imageHeight = bytes.size() / imageWidth;
         if (imageHeight > 1000) {
             imageHeight = 1000;
         }
-        BufferedImage image = new BufferedImage(IMAGE_WIDTH, imageHeight, BufferedImage.TYPE_INT_RGB);
+        BufferedImage image = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_RGB);
 
         int data[] = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 

@@ -30,7 +30,7 @@ public class RenderImageMain {
             return;
         }
 
-        RenderingStrategy renderingStrategy = new BasicGrayscaleRendering();
+        RenderingStrategy renderingStrategy = new BasicGrayscaleRendering(847);
         BufferedImage renderedImage = renderImage(bytes, renderingStrategy);
 
         if (saveImageToFile) {
