@@ -1,7 +1,6 @@
 package com.wasd.mains;
 
 import com.wasd.Mp3Util;
-import com.wasd.gui.MainPanel;
 import com.wasd.gui.MainWindow;
 import com.wasd.rendering.BasicGrayscaleRendering;
 import com.wasd.rendering.RenderingStrategy;

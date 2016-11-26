@@ -5,18 +5,21 @@ import java.awt.image.DataBufferInt;
 import java.util.List;
 
 public class BasicGrayscaleRendering implements RenderingStrategy {
+
+    private static final int IMAGE_WIDTH = 835;
+
     @Override
     public BufferedImage render(List<Byte> bytes) {
-        int sizeSquared = (int) Math.sqrt(bytes.size());
-        if (sizeSquared > 1500) {
-            sizeSquared = 1500;
+        int imageHeight = bytes.size() / IMAGE_WIDTH;
+        if (imageHeight > 1000) {
+            imageHeight = 1000;
         }
-        BufferedImage image = new BufferedImage(sizeSquared, sizeSquared, BufferedImage.TYPE_INT_RGB);
+        BufferedImage image = new BufferedImage(IMAGE_WIDTH, imageHeight, BufferedImage.TYPE_INT_RGB);
 
         int data[] = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 
-        if (data.length != sizeSquared * sizeSquared || data.length > bytes.size()) {
-            System.out.println("WTF");
+        if (data.length > bytes.size()) {
+            System.out.printf("data.length (%d) > bytes.size() (%d)\n", data.length, bytes.size());
             return null;
         }
 
